@@ -4,7 +4,9 @@
     <h1>All Blog Articles</h1>
     <input type="text" v-model="search" placeholder="Search blogs" />
     <div v-for="blog in filteredBlogs" class="single-blog" v-bind:key="blog.id">
-      <h2 v-rainbow>{{ blog.title | to-uppercase }}</h2>
+      <router-link v-bind:to="`/blog/${blog.id}`">
+        <h2>{{ blog.title | to-uppercase }}</h2>
+      </router-link>
       <article>{{ blog.body | snippet | capitalizeFirst }}</article>
     </div>
   </div>
@@ -47,7 +49,6 @@ export default {
     this.axios
       .get("https://jsonplaceholder.typicode.com/posts")
       .then(response => {
-        console.log(response.data);
         this.blogs = response.data.slice(0, 10);
       });
   }
