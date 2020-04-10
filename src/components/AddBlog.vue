@@ -34,6 +34,11 @@
         <input type="checkbox" name="trees" id="trees" value="trees" v-model="blog.categories" />
       </div>
 
+      <label for="region">Region:</label>
+      <select v-model="blog.region" name="region" id="region">
+        <option v-for="region in regions" v-bind:key="region">{{ region }}</option>
+      </select>
+
       <div id="preview">
         <h3>Preview Blog</h3>
         <p>Blog Title: {{ blog.title }}</p>
@@ -43,6 +48,7 @@
         <ul>
           <li v-for="category in blog.categories" v-bind:key="category">{{ category }}</li>
         </ul>
+        <p>Region: {{ blog.region }}</p>
       </div>
     </form>
   </div>
@@ -55,8 +61,15 @@ export default {
       blog: {
         title: "",
         content: "",
-        categories: []
-      }
+        categories: [],
+        region: ""
+      },
+      regions: [
+        "Pacific Northwest",
+        "Northeast",
+        "Northern Europe",
+        "British Isles"
+      ]
     };
   },
   methods: {}
