@@ -1,7 +1,7 @@
 <template>
   <div id="add-blog">
     <h2>Add A New Blog Post</h2>
-    <form>
+    <form v-if="!submitted">
       <label for="title">Blog Title</label>
       <input type="text" v-model.lazy="blog.title" name="title" id="title" required />
 
@@ -39,18 +39,26 @@
         <option v-for="region in regions" v-bind:key="region">{{ region }}</option>
       </select>
 
-      <div id="preview">
-        <h3>Preview Blog</h3>
-        <p>Blog Title: {{ blog.title }}</p>
-        <p>Blog Content:</p>
-        <p>{{ blog.content }}</p>
-        <p>Blog Categories:</p>
-        <ul>
-          <li v-for="category in blog.categories" v-bind:key="category">{{ category }}</li>
-        </ul>
-        <p>Region: {{ blog.region }}</p>
+      <div>
+        <button v-on:click.prevent="post">Add Blog</button>
       </div>
     </form>
+
+    <div v-if="submitted">
+      <h3>Thanks for adding your post!</h3>
+    </div>
+
+    <div id="preview">
+      <h3>Preview Blog</h3>
+      <p>Blog Title: {{ blog.title }}</p>
+      <p>Blog Content:</p>
+      <p>{{ blog.content }}</p>
+      <p>Blog Categories:</p>
+      <ul>
+        <li v-for="category in blog.categories" v-bind:key="category">{{ category }}</li>
+      </ul>
+      <p>Region: {{ blog.region }}</p>
+    </div>
   </div>
 </template>
 
@@ -58,6 +66,7 @@
 export default {
   data() {
     return {
+      submitted: false,
       blog: {
         title: "",
         content: "",
@@ -72,7 +81,20 @@ export default {
       ]
     };
   },
-  methods: {}
+  methods: {
+    post: function() {
+      this.axios
+        .post("https://jsonplaceholder.typicode.com/posts", {
+          title: this.blog.title,
+          body: this.blog.content,
+          userId: 1
+        })
+        .then(response => {
+          console.log(response.data);
+          this.submitted = true;
+        });
+    }
+  }
 };
 </script>
 
@@ -106,7 +128,6 @@ h3 {
   display: inline-block;
   margin-right: 25px;
 }
-
 #checkboxes label {
   display: inline-block;
 }
