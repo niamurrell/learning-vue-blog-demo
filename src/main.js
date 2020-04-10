@@ -9,7 +9,8 @@ Vue.config.productionTip = false
 Vue.prototype.axios = Axios;
 
 const router = new VueRouter({
-  routes: Routes
+  routes: Routes,
+  mode: 'history'
 });
 
 Vue.directive('theme', {
