@@ -1,9 +1,16 @@
 import Vue from 'vue'
+import VueRouter from 'vue-router';
 import App from './App.vue'
 import Axios from 'axios';
+import Routes from './routes';
 
+Vue.use(VueRouter);
 Vue.config.productionTip = false
 Vue.prototype.axios = Axios;
+
+const router = new VueRouter({
+  routes: Routes
+});
 
 Vue.directive('theme', {
   bind(el, binding) {
@@ -21,4 +28,5 @@ Vue.directive('theme', {
 
 new Vue({
   render: h => h(App),
+  router: router
 }).$mount('#app')
