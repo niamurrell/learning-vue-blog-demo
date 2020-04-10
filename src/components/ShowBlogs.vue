@@ -5,7 +5,7 @@
     <input type="text" v-model="search" placeholder="Search blogs" />
     <div v-for="blog in filteredBlogs" class="single-blog" v-bind:key="blog.id">
       <h2 v-rainbow>{{ blog.title | to-uppercase }}</h2>
-      <article>{{ blog.body | snippet }}</article>
+      <article>{{ blog.body | snippet | capitalizeFirst }}</article>
     </div>
   </div>
 </template>
@@ -24,6 +24,26 @@ export default {
       return this.blogs.filter(blog => {
         return blog.title.match(this.search) || blog.body.match(this.search);
       });
+    }
+  },
+  filters: {
+    "to-uppercase": function(value) {
+      return value.toUpperCase();
+    },
+    capitalizeFirst(value) {
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    },
+    snippet: function(value) {
+      return `${value.slice(0, 100)}...`;
+    }
+  },
+  directives: {
+    rainbow: {
+      bind: function(el) {
+        el.style.color = `#${Math.random()
+          .toString(16)
+          .slice(2, 8)}`;
+      }
     }
   },
   created() {
