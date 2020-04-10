@@ -1,6 +1,6 @@
 <template>
   <!-- passed to theme as a string: -->
-  <div v-theme="'wide'" id="show-blogs">
+  <div v-theme:column="'narrow'" id="show-blogs">
     <h1>All Blog Articles</h1>
     <div v-for="blog in blogs" class="single-blog" v-bind:key="blog.id">
       <h2 v-rainbow>{{ blog.title }}</h2>
