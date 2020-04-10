@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <ShowBlogs />
+    <ListBlogs />
   </div>
 </template>
 
 <script>
 // import AddBlog from "./components/AddBlog";
+import ListBlogs from "./components/ListBlogs";
 import ShowBlogs from "./components/ShowBlogs";
 
 export default {
   name: "App",
   components: {
+    ListBlogs,
     ShowBlogs
     // AddBlog
   }

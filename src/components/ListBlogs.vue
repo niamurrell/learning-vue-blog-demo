@@ -5,7 +5,6 @@
     <input type="text" v-model="search" placeholder="Search blogs" />
     <div v-for="blog in filteredBlogs" class="single-blog" v-bind:key="blog.id">
       <h2 v-rainbow>{{ blog.title | to-uppercase }}</h2>
-      <article>{{ blog.body | snippet | capitalizeFirst }}</article>
     </div>
   </div>
 </template>
